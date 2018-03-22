@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Update CSS Variables with JS</title>
+</head>
+
+<body>
+    <h1>Update CSS Variables
+        <br> with
+        <span class=""> JS</span>
+    </h1>
+    <div class="controls">
+        <label for="spacing"> Spacing: </label>
+        <input type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+        <label for="blur"> Blur: </label>
+        <input type="range" name="blur" min="0" max="25" value="10" data-sizing="px">
+
+        <label for="base"> Color base: </label>
+        <input type="color" name="base" value="#ffffff">
+        <img src="http://www.changiairport.com/content/dam/cag/5-airport-experience/3-services-facilities/xmbfc.jpg.pagespeed.ic.NUU_0GcgrH.jpg"
+            alt="image">
+    </div>
+</body>
+
+</html>
+
+<style>
+    :root {
+        --base: orange;
+        --spacing: 20px;
+        --blur: 1px;
+    }
+
+    img {
+        padding: var(--spacing);
+        background: var(--base);
+        filter: blur(var(--blur));
+        display: block;
+        position: relative;
+        left: 50%;
+        transform: translate(-50%);
+    }
+ span{
+     color: var(--base);
+ }
+    body {
+        text-align: center;
+        background-color: rgb(74, 74, 126);
+        color: cornsilk;
+        font-size: 20px;
+    }
+</style>
+<script>
+
+    const inputs = document.querySelectorAll('.controls input');
+
+    inputs.forEach(input => input.addEventListener('change', handleChange));
+    // inputs.forEach(input => input.addEventListener('mousemove', handleChange));
+
+    function handleChange (){
+     
+        var pixells = this.dataset.sizing || '';
+        console.log(pixells)
+        document.documentElement.style.setProperty(`--${this.name}`,this.value + pixells)
+     }
+
+</script>
