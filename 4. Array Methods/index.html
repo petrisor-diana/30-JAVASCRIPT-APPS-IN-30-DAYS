@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Array methods</title>
+</head>
+
+<body>
+    <h1>Check the console</h1>
+</body>
+
+</html>
+
+<script>
+    const inventors = [
+        { first: 'Vitaly', last: 'Abalakov', year: 1906, passed: 1986 },
+        { first: 'Ernst', last: 'Karl-Abbe', year: 1840, passed: 1905 },
+        { first: 'Hovannes', last: 'Adamian', year: 1879, passed: 1932 },
+        { first: 'Samuel-W', last: 'Alderson', year: 1914, passed: 2005 },
+        { first: 'Alexandre', last: 'Alexeieff', year: 1901, passed: 1982 },
+        { first: 'Rostislav', last: 'Alexeyev', year: 1916, passed: 1980 },
+        { first: 'Randi', last: 'Altschul', year: 1960, passed: 2000 },
+        { first: 'Bruce', last: 'Ames', year: 1928, passed: 1980 }
+    ];
+
+    // filter method , array prototype - Syntax  var newArray = arr.filter(callback[, thisArg])
+// a)
+    const nineteen = inventors.filter(function (inventor) {
+        if (inventor.year > 1900) {
+            return true;
+        }
+    });
+
+    console.log(nineteen);
+    console.table(nineteen);
+
+// b)   using arrow function
+
+const nineteenS = inventors.filter(inventor => inventor.year > 1900);
+
+console.table(nineteenS);
+
+
+//  array.prototype.map()  - Syntax  var new_array = arr.map(function callback(currentValue))
+// a)
+   const fullName = inventors.map(function(inventor){
+        return inventor.first + ' ' + inventor.last;
+   });
+   console.log(fullName);
+
+// b) using arrow function and template strings 
+
+const fullNames = inventors.map(inventor => `${inventor.first} ${inventor.last}`);
+console.log(fullNames);
+
+// arr.sort([compareFunction])
+// a)
+const sortInventor = inventors.sort(function(a,b){
+    if(a.year > b.year) {
+        return 1;
+    } else{
+        return -1;
+    }
+} )
+console.table(sortInventor);
+
+// b) arrow function and ternary operator
+
+const sortInventors = inventors.sort((a,b) => a.year>b.year? 1 :-1);
+console.table(sortInventors);
+
+// arr.reduce(callback[, initialValue])
+
+const totalYears = inventors.reduce((total, inventor) => {return total + (inventor.passed - inventor.year)},0);
+console.log(totalYears);
+
+// all Paris streets that contain 'de' from wikipedia
+
+const category = document.querySelector('.mw-category');
+const links = Array.from(category.querySelectorAll('a'));
+const streets = links.map(link => link.text);
+const streetDe = streets.filter(street => street.includes('de'));
+
+
+//
+
+</script>
