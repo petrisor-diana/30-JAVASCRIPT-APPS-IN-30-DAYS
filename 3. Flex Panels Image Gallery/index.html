@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+    <title>Flex Gallery Image</title>
+</head>
+
+<body>
+    <div class="panels">
+        <div class="panel one">
+            <p>Hey</p>
+            <p>Let's</p>
+            <p>Dance</p>
+        </div>
+        <div class="panel two">
+            <p>Give</p>
+            <p>Take</p>
+            <p>Receive</p>
+        </div>
+        <div class="panel three">
+            <p>Experience</p>
+            <p>It</p>
+            <p>Today</p>
+        </div>
+        <div class="panel four">
+            <p>Fly</p>
+            <p>Away</p>
+            <p>In nature</p>
+        </div>
+    </div>
+</body>
+</html>
+
+<style>
+    body {
+        margin: 0;
+        color: white;
+        font-size: 2em;
+        font-weight: bold;
+        text-shadow: 2px 2px 7px rgb(7, 7, 7);
+    }
+
+    .panels {
+        display: flex;
+        min-height: 100vh;
+    }
+
+    .panel {
+        border-right: 2px solid rgb(247, 162, 6);
+        display: flex;
+        background-size: cover;
+        text-align: center;
+        align-items: center;
+        flex-direction: column;
+        flex: 1;
+        transition:  font-size 0.5s cubic-bezier(0.35,-0.12, 1,-0.28),
+                     flex  0.5s cubic-bezier(0.35,-0.12, 1,-0.28),
+                     background 0.5s;
+    }
+    
+    .panel > p {
+        margin: 0;
+        width: 100%;
+        display: flex;
+        flex: 1 0 auto;
+        justify-content: center;
+        align-items: center; 
+    }
+    .open{
+        font-size: 40px;
+        flex: 5;
+    }
+    .panel :first-child {transform: translateY(-100%);}
+    .panel.open-active :first-child {transform: translateY(0%);}
+    .panel :last-child {transform: translateY(100%); visibility: hidden;}
+    .panel.open-active :last-child {transform: translateY(0%); visibility: initial;}
+
+    .one {
+        background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4iX1JfiMtVSWzzEz6lxNW8dZyR3BTG2l8wY0V1fw7Ns4Z1x5p');
+    }
+
+    .two {
+        background-image: url('http://www.putokaz.me/images/AKTUELNO/464_Pet_mirisa_koji_smanjuju_stres/cvece.jpg');
+    }
+
+    .three {
+        background-image: url('https://cdn2.list25.com/wp-content/uploads/2013/04/25-giraffe_tn.jpg');
+    }
+
+    .four {
+        background-image: url('https://http2.mlstatic.com/2000-litros-nutriente-fertilizante-hidroponia-morango-tomate-D_NQ_NP_940821-MLB26587844851_012018-F.jpg');
+    }
+</style>
+
+<script>
+    const myPanel = document.querySelectorAll('.panel');
+    myPanel.forEach(panel => {panel.addEventListener('click',togglePanel)         
+    });
+    myPanel.forEach(panel => {panel.addEventListener('transitionend',toggleActive)         
+    });
+
+    function togglePanel(){
+      this.classList.toggle('open');
+    }
+
+    function toggleActive(e){
+        console.log(e)
+     if(e.propertyName.includes('flex')){
+         this.classList.toggle('open-active');
+     }
+    }
+
+</script>
