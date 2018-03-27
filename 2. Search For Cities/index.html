@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Search for Cities</title>
+</head>
+
+<body>
+    <input id="searchCity" type="text" placeholder="Search for a city" />
+    <ul id="suggestions">
+
+    </ul>
+</body>
+
+</html>
+<style>
+    body {
+        background-color: rgb(248, 192, 9);
+    }
+
+    input {
+        width: 210px;
+        height: 40px;
+        border: 2px solid rgb(95, 78, 3);
+        box-shadow: 2px 2px rgb(95, 78, 3);
+        margin: 100px 200px;
+        margin-bottom: 0;
+        transform: translate(-50%);
+    }
+
+    ul {
+        margin: 0px 100px;
+        padding: 0px;
+    }
+
+    li {
+        display: block;
+        width: 200px;
+        height: 40px;
+        background-color: wheat;
+        border: 1px solid rgba(0, 0, 0, 0.315);
+        text-align: center;
+    }
+    .hi{
+        background-color: rgb(255, 219, 102)
+    }
+</style>
+<script>
+    const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+    console.log(endpoint);
+    const cities = [];
+
+    fetch(endpoint).then(data => data.json()).then(myData => cities.push(...myData));
+
+    function findCities(x, cities) {
+        return cities.filter(place => {
+            const regex = new RegExp(x, 'gi');
+            return place.city.match(regex);
+        });
+    }
+
+    function displayMatches() {
+
+        if(!this.value.length){
+            displayDefault();
+        }
+        else {
+        const myArray = findCities(this.value, cities);
+        const addHtml = myArray.map(place => {
+     
+            return `<li>
+        <span class="name">${place.city}</span>
+        <span class="population">${place.population}</span>
+        </li>`
+        }).join('');
+
+        mySuggestions.innerHTML = addHtml;
+    }
+}
+
+    function displayDefault() {
+        
+      suggestions.innerHTML = `
+        <li>Type in to filter for a city</li>`;
+    }
+                
+
+    var myCity = document.getElementById('searchCity');
+    var mySuggestions = document.getElementById('suggestions');
+
+    myCity.addEventListener('input', displayMatches);
+
+
+
+
+</script>
